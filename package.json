@@ -1,0 +1,42 @@
+{
+  "name": "autosuggest-trie",
+  "version": "1.0.0",
+  "description": "Trie implementation for autosuggest components",
+  "main": "dist/autosuggest-trie.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moroshko/autosuggest-trie.git"
+  },
+  "author": "Misha Moroshko <michael.moroshko@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/moroshko/autosuggest-trie/issues"
+  },
+  "homepage": "https://github.com/moroshko/autosuggest-trie",
+  "scripts": {
+    "test": "mocha src/test --compilers js:babel/register",
+    "dist": "npm test && babel src/autosuggest-trie.js -o dist/autosuggest-trie.js --stage 0"
+  },
+  "devDependencies": {
+    "babel": "^5.2.13",
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4"
+  },
+  "keywords": [
+    "autosuggest",
+    "autocomplete",
+    "auto suggest",
+    "auto complete",
+    "trie autosuggest",
+    "trie autocomplete",
+    "trie auto suggest",
+    "trie auto complete",
+    "autosuggest trie",
+    "autocomplete trie",
+    "auto suggest trie",
+    "auto complete trie"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  }
+}
