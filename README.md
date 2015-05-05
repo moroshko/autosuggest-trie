@@ -1,3 +1,6 @@
+[![Build Status][status-image]][status-url]
+[![NPM Version][npm-image]][npm-url]
+
 # Autosuggest Trie
 
 Trie implementation for autosuggest components.
@@ -65,3 +68,8 @@ npm test
 ## License
 
 [MIT](http://moroshko.mit-license.org)
+
+[status-image]: https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg
+[status-url]: https://codeship.com/projects/77991
+[npm-image]: https://img.shields.io/npm/v/autosuggest-trie.svg
+[npm-url]: https://npmjs.org/package/autosuggest-trie
