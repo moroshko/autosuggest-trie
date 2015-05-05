@@ -13,12 +13,14 @@
   },
   "homepage": "https://github.com/moroshko/autosuggest-trie",
   "scripts": {
+    "lint": "jscs -evm 3 -r inline .",
     "test": "mocha src/test --compilers js:babel/register",
-    "dist": "npm test && babel src/autosuggest-trie.js -o dist/autosuggest-trie.js --stage 0"
+    "dist": "npm run lint && npm test && babel src/autosuggest-trie.js -o dist/autosuggest-trie.js --stage 0"
   },
   "devDependencies": {
     "babel": "^5.2.13",
     "chai": "^2.3.0",
+    "jscs": "^1.13.1",
     "mocha": "^2.2.4"
   },
   "keywords": [
