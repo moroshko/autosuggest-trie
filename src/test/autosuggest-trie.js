@@ -79,14 +79,6 @@ describe('trie', function() {
       ]);
     });
 
-    // (Misha) Ideally, this test should pass!
-    //
-    // it('should work with duplicate words in the query', function() {
-    //   expect(trie.getMatches('e e')).to.deep.equal([
-    //     { location: 'East Eagle 1235 VIC' }
-    //   ]);
-    // });
-
     it('should return no results if not all the words are found', function() {
       expect(trie.getMatches('East X')).to.deep.equal([]);
       expect(trie.getMatches('r w 5 x')).to.deep.equal([]);
