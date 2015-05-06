@@ -4,11 +4,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 var _underscore = require('underscore');
-
-var _underscore2 = _interopRequireDefault(_underscore);
 
 'use strict';
 
@@ -85,7 +81,7 @@ function getPhraseIndices(phrase) {
     indicesArray[indicesArray.length] = getWordIndices(words[i]); // it's faster than .push()
   }
 
-  return _underscore2['default'].intersection.apply(null, indicesArray);
+  return _underscore.intersection.apply(null, indicesArray);
 }
 
 function getMatches(query) {

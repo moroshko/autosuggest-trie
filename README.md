@@ -21,22 +21,20 @@ const locations = [{
   location: 'East Richmond 1234 VIC'
 }, {
   id: 2,
-  location: 'Richmond West 5678 VIC'
+  location: 'Richmond East 4321 NSW'
 }, {
   id: 3,
+  location: 'Richmond West 5678 VIC'
+}, {
+  id: 4,
   location: 'Cheltenham 3192 Melbourne VIC'
 }];
 
 trie.init(locations, 'location');
 
-const matches = trie.getMatches('ri');
-// => [{
-//  id: 1,
-//  location: 'East Richmond 1234 VIC'
-// }, {
-//  id: 2,
-//  location: 'Richmond West 5678 VIC'
-// }];
+console.log(trie.getMatches('richmond e'));
+// [ { id: 1, location: 'East Richmond 1234 VIC' },
+//   { id: 2, location: 'Richmond East 4321 NSW' } ]
 ```
 
 ### API

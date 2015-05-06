@@ -1,6 +1,6 @@
 'use strict';
 
-import _ from 'underscore';
+import { intersection } from 'underscore';
 
 let trie = null;
 let data = null;
@@ -74,7 +74,7 @@ function getPhraseIndices(phrase) {
     indicesArray[indicesArray.length] = getWordIndices(words[i]); // it's faster than .push()
   }
 
-  return _.intersection.apply(null, indicesArray);
+  return intersection.apply(null, indicesArray);
 }
 
 function getMatches(query) {
