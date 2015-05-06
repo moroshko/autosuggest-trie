@@ -1,7 +1,7 @@
 'use strict';
 
 import { expect } from 'chai';
-import trie from '../autosuggest-trie';
+import autosuggestTrie from '../autosuggest-trie';
 
 const locations = [{
   location: 'East Richmond 1234 VIC'
@@ -12,10 +12,11 @@ const locations = [{
 }, {
   location: 'Cheltenham 3192 Melbourne VIC'
 }];
+let trie = null;
 
 describe('trie', function() {
   beforeEach(function() {
-    trie.init(locations, 'location');
+    trie = autosuggestTrie.create(locations, 'location');
   });
 
   describe('single word query', function() {

@@ -14,7 +14,7 @@ npm install autosuggest-trie --save
 ## Basic Usage
 
 ```js
-import trie from 'autosuggest-trie';
+import autosuggestTrie from 'autosuggest-trie';
 
 const locations = [{
   id: 1,
@@ -30,7 +30,7 @@ const locations = [{
   location: 'Cheltenham 3192 Melbourne VIC'
 }];
 
-trie.init(locations, 'location');
+const trie = autosuggestTrie.create(locations, 'location');
 
 console.log(trie.getMatches('richmond e'));
 // [ { id: 1, location: 'East Richmond 1234 VIC' },
@@ -39,13 +39,13 @@ console.log(trie.getMatches('richmond e'));
 
 ### API
 
-* [`init(items, itemKey)`](#initOption)
+* [`create(items, itemKey)`](#createOption)
 * [`getMatches(query)`](#getMatchesOption)
 
-<a name="initOption"></a>
-#### init(items, itemKey)
+<a name="createOption"></a>
+#### create(items, itemKey)
 
-Builds a trie containing the given items.
+Creates a trie containing the given items.
 
 * `items ` - array of objects
 * `itemKey` - key name that every `obj` in `items` must have. `obj[keyName]` must be a string. `obj` will be inserted to trie based on `obj[keyName]`.
