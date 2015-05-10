@@ -35,27 +35,33 @@ const trie = autosuggestTrie.create(locations, 'location');
 console.log(trie.getMatches('richmond e'));
 // [ { id: 1, location: 'East Richmond 1234 VIC' },
 //   { id: 2, location: 'Richmond East 4321 NSW' } ]
+
+console.log(trie.getMatches('richmond e', 1));
+// [ { id: 1, location: 'East Richmond 1234 VIC' } ]
 ```
 
 ### API
 
 * [`create(items, itemKey)`](#createOption)
-* [`getMatches(query)`](#getMatchesOption)
+* [`getMatches(query, limit)`](#getMatchesOption)
 
 <a name="createOption"></a>
 #### create(items, itemKey)
 
 Creates a trie containing the given items.
 
-* `items ` - array of objects
-* `itemKey` - key name that every `obj` in `items` must have. `obj[keyName]` must be a string. `obj` will be inserted to trie based on `obj[keyName]`.
+* `items ` - (required) array of objects
+* `itemKey` - (required) key name that every `obj` in `items` must have. `obj[keyName]` must be a string. `obj` will be inserted to trie based on `obj[keyName]`.
 
 <a name="getMatchesOption"></a>
-#### getMatches(query)
+#### getMatches(query, limit)
 
-Returns all the `items` that match the given `query`.
+If `limit` is specified, returns the first `limit` `items` that match `query`.
 
-* `query` - an arbitrary string
+Otherwise, returns all the `items` that match `query`.
+
+* `query` - (required) string
+* `limit` - (optional) integer >= 1
 
 ## Running Tests
 

@@ -1,6 +1,6 @@
 'use strict';
 
-import { intersection } from 'underscore';
+import intersection from '../intersection/intersection';
 
 function create(items, textField) {
   const data = items;
@@ -14,7 +14,7 @@ function create(items, textField) {
       const letter = word[i];
 
       if (node[letter]) {
-        node[letter].ids[node[letter].ids.length] = id; // it's faster than .push()
+        node[letter].ids[node[letter].ids.length] = id;
       } else {
         node[letter] = {
           ids: [id]
@@ -49,7 +49,7 @@ function create(items, textField) {
     return node.ids;
   }
 
-  function getPhraseIndices(phrase) {
+  function getPhraseIndices(phrase, limit) {
     phrase = phrase.trim();
 
     if (phrase === '') {
@@ -60,20 +60,20 @@ function create(items, textField) {
     const wordsCount = words.length;
     let indicesArray = [];
 
-    for (let i = 0; i < wordsCount; i++) { // it's faster than .map()
-      indicesArray[indicesArray.length] = getWordIndices(words[i]); // it's faster than .push()
+    for (let i = 0; i < wordsCount; i++) {
+      indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
-    return intersection.apply(null, indicesArray);
+    return intersection(indicesArray, limit);
   }
 
-  function getMatches(query) {
-    const indices = getPhraseIndices(query);
+  function getMatches(query, limit) {
+    const indices = getPhraseIndices(query, limit);
     const indicesCount = indices.length;
     let result = [];
 
     for (let i = 0; i < indicesCount; i++) {
-      result[result.length] = data[indices[i]]; // it's faster than .push()
+      result[result.length] = data[indices[i]];
     }
 
     return result;
@@ -86,7 +86,7 @@ function create(items, textField) {
   }
 
   return {
-    getMatches: getMatches
+    getMatches
   };
 }
 
