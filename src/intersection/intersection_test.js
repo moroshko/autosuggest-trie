@@ -56,7 +56,7 @@ describe('intersection', () => {
       ], 3)).to.be.empty;
     });
 
-    it('should return the start of the array if only one array is given', () => {
+    it('should return the start of the array single array is given', () => {
       expect(intersection([
         [1, 3, 4, 16, 125]
       ], 3)).to.deep.equal([1, 3, 4]);

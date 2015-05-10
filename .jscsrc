@@ -12,7 +12,7 @@
   "disallowImplicitTypeConversion": ["boolean", "binary", "string"],
   "disallowKeywords": ["with"],
   "disallowMultipleSpaces": true,
-  "disallowMultipleVarDecl": "exceptUndefined",
+  "disallowMultipleVarDecl": null,
   "disallowNotOperatorsInConditionals": true,
   "disallowOperatorBeforeLineBreak": ["."],
   "disallowPaddingNewlinesInBlocks": true,

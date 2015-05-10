@@ -2,7 +2,7 @@
   "name": "autosuggest-trie",
   "version": "1.2.0",
   "description": "Trie implementation for autosuggest components",
-  "main": "dist/autosuggest-trie.js",
+  "main": "dist/autosuggest-trie/autosuggest-trie.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/moroshko/autosuggest-trie.git"
@@ -15,7 +15,8 @@
   "scripts": {
     "lint": "jscs src --verbose --max-errors=3 --reporter=inline --esnext",
     "test": "mocha src --recursive --compilers js:babel/register",
-    "dist": "npm run lint && npm test && babel src/autosuggest-trie.js -o dist/autosuggest-trie.js --stage 0"
+    "build": "npm run lint && npm test",
+    "dist": "npm run build && babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection/intersection.js -o dist/intersection/intersection.js --stage 0"
   },
   "keywords": [
     "autosuggest",

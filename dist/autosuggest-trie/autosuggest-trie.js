@@ -4,7 +4,11 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _underscore = require('underscore');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _intersectionIntersection = require('../intersection/intersection');
+
+var _intersectionIntersection2 = _interopRequireDefault(_intersectionIntersection);
 
 'use strict';
 
@@ -20,7 +24,7 @@ function create(items, textField) {
       var letter = word[i];
 
       if (node[letter]) {
-        node[letter].ids[node[letter].ids.length] = id; // it's faster than .push()
+        node[letter].ids[node[letter].ids.length] = id;
       } else {
         node[letter] = {
           ids: [id]
@@ -55,7 +59,7 @@ function create(items, textField) {
     return node.ids;
   }
 
-  function getPhraseIndices(phrase) {
+  function getPhraseIndices(phrase, limit) {
     phrase = phrase.trim();
 
     if (phrase === '') {
@@ -67,20 +71,19 @@ function create(items, textField) {
     var indicesArray = [];
 
     for (var i = 0; i < wordsCount; i++) {
-      // it's faster than .map()
-      indicesArray[indicesArray.length] = getWordIndices(words[i]); // it's faster than .push()
+      indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
-    return _underscore.intersection.apply(null, indicesArray);
+    return _intersectionIntersection2['default'](indicesArray, limit);
   }
 
-  function getMatches(query) {
-    var indices = getPhraseIndices(query);
+  function getMatches(query, limit) {
+    var indices = getPhraseIndices(query, limit);
     var indicesCount = indices.length;
     var result = [];
 
     for (var i = 0; i < indicesCount; i++) {
-      result[result.length] = data[indices[i]]; // it's faster than .push()
+      result[result.length] = data[indices[i]];
     }
 
     return result;

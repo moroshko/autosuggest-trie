@@ -1,12 +1,24 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+'use strict';
+
 // Returns the first `limit` items in the intersection of `sortedArrays`.
-export default function(sortedArrays, limit) {
+
+exports['default'] = function (sortedArrays, limit) {
   limit = limit || Infinity;
 
-  const arraysCount = sortedArrays.length;
-  let result = [], indices = [], largest = -Infinity, count = 0;
-  let i, current, array, arrayLength;
+  var arraysCount = sortedArrays.length;
+  var result = [],
+      indices = [],
+      largest = -Infinity,
+      count = 0;
+  var i = undefined,
+      current = undefined,
+      array = undefined,
+      arrayLength = undefined;
 
   for (i = 0; i < arraysCount; i++) {
     indices[i] = 0;
@@ -46,4 +58,6 @@ export default function(sortedArrays, limit) {
   }
 
   return result;
-}
+};
+
+module.exports = exports['default'];
