@@ -12,14 +12,26 @@ const locations = [{
 }, {
   location: 'Cheltenham 3192 Melbourne VIC'
 }];
-const trie = autosuggestTrie.create(locations, 'location');
+
+function locationsComparator(location1, location2, prefix) {
+  const location1Words = location1.location.split(/\s+/);
+  const location2Words = location2.location.split(/\s+/);
+  const index1 =
+    location1Words.findIndex(word => word.toLowerCase().startsWith(prefix));
+  const index2 =
+    location2Words.findIndex(word => word.toLowerCase().startsWith(prefix));
+  
+  return index1 - index2;
+}
+
+const trie = autosuggestTrie.create(locations, 'location', locationsComparator);
 
 describe('trie', () => {
   describe('single word query', () => {
     it('should find all exact matches', () => {
       expect(trie.getMatches('Richmond')).to.deep.equal([
-        { location: 'East Richmond 1234 VIC' },
-        { location: 'Richmond West 5678 VIC' }
+        { location: 'Richmond West 5678 VIC' },
+        { location: 'East Richmond 1234 VIC' }
       ]);
     });
 
@@ -72,14 +84,14 @@ describe('trie', () => {
 
     it('should find all partial matches', () => {
       expect(trie.getMatches('r v')).to.deep.equal([
-        { location: 'East Richmond 1234 VIC' },
-        { location: 'Richmond West 5678 VIC' }
+        { location: 'Richmond West 5678 VIC' },
+        { location: 'East Richmond 1234 VIC' }
       ]);
     });
 
     it('should limit number of matches', () => {
       expect(trie.getMatches('r v', 1)).to.deep.equal([
-        { location: 'East Richmond 1234 VIC' }
+        { location: 'Richmond West 5678 VIC' }
       ]);
     });
 

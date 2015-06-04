@@ -1,20 +1,29 @@
 'use strict';
 
-import intersection from '../intersection/intersection';
+import { intersection } from 'lodash';
 
-function create(items, textField) {
+function create(items, textField, itemsComparator) {
   const data = items;
   const trie = {};
 
   function addWord(word, id) {
     const wordLength = word.length;
     let node = trie;
+    let prefix = '';
 
     for (let i = 0; i < wordLength; i++) {
       const letter = word[i];
 
+      prefix += letter;
+
       if (node[letter]) {
         node[letter].ids[node[letter].ids.length] = id;
+
+        if (itemsComparator) {
+          node[letter].ids.sort(function(id1, id2) {
+            return itemsComparator(items[id1], items[id2], prefix);
+          });
+        }
       } else {
         node[letter] = {
           ids: [id]
@@ -64,7 +73,7 @@ function create(items, textField) {
       indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
-    return intersection(indicesArray, limit);
+    return intersection.apply(null, indicesArray).slice(0, limit);
   }
 
   function getMatches(query, limit) {

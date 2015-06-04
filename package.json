@@ -38,5 +38,8 @@
     "jscs": "^1.13.1",
     "mocha": "^2.2.4"
   },
+  "dependencies": {
+    "lodash": "^3.9.3"
+  },
   "license": "MIT"
 }
