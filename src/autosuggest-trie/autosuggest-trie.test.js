@@ -31,8 +31,6 @@ function locationsComparator(location1, location2) {
 
 const trie = autosuggestTrie.create(locations, 'location', locationsComparator);
 
-console.log(trie.getMatches('ri', 2));
-
 function getLocationById(id) {
   const matches = locations.filter(location => location.id === id);
 
