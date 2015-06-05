@@ -1,12 +1,13 @@
 'use strict';
 
-import { intersection } from 'lodash';
+import intersectionWithLimit
+  from '../intersection-with-limit/intersection-with-limit';
 
 function create(items, textField, itemsComparator) {
   const data = items;
   const trie = {};
 
-  function addWord(word, id) {
+  function addWord(word, id, wordIndex) {
     const wordLength = word.length;
     let node = trie;
     let prefix = '';
@@ -16,18 +17,20 @@ function create(items, textField, itemsComparator) {
 
       prefix += letter;
 
-      if (node[letter]) {
-        node[letter].ids[node[letter].ids.length] = id;
+      if (!node[letter]) {
+        node[letter] = { ids: [] };
+      }
 
-        if (itemsComparator) {
-          node[letter].ids.sort(function(id1, id2) {
-            return itemsComparator(items[id1], items[id2], prefix);
-          });
-        }
-      } else {
-        node[letter] = {
-          ids: [id]
-        };
+      if (!node[letter].ids[wordIndex]) {
+        node[letter].ids[wordIndex] = [];
+      }
+
+      node[letter].ids[wordIndex].push(id);
+
+      if (itemsComparator) {
+        node[letter].ids[wordIndex].sort(function(id1, id2) {
+          return itemsComparator(items[id1], items[id2]);
+        });
       }
 
       node = node[letter];
@@ -39,7 +42,7 @@ function create(items, textField, itemsComparator) {
     const wordsCount = words.length;
 
     for (let i = 0; i < wordsCount; i++) {
-      addWord(words[i], id);
+      addWord(words[i], id, i);
     }
   }
 
@@ -55,7 +58,17 @@ function create(items, textField, itemsComparator) {
       }
     }
 
-    return node.ids;
+    const ids = node.ids;
+    const length = ids.length;
+    let result = [];
+
+    for (let i = 0; i < length; i++) {
+      if (ids[i]) {
+        result = result.concat(ids[i]);
+      }
+    }
+
+    return result;
   }
 
   function getPhraseIndices(phrase, limit) {
@@ -73,7 +86,7 @@ function create(items, textField, itemsComparator) {
       indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
-    return intersection.apply(null, indicesArray).slice(0, limit);
+    return intersectionWithLimit(indicesArray, limit);
   }
 
   function getMatches(query, limit) {

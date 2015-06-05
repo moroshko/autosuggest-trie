@@ -6,29 +6,38 @@ Object.defineProperty(exports, '__esModule', {
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _intersectionIntersection = require('../intersection/intersection');
+var _intersectionWithLimitIntersectionWithLimit = require('../intersection-with-limit/intersection-with-limit');
 
-var _intersectionIntersection2 = _interopRequireDefault(_intersectionIntersection);
+var _intersectionWithLimitIntersectionWithLimit2 = _interopRequireDefault(_intersectionWithLimitIntersectionWithLimit);
 
-'use strict';
-
-function create(items, textField) {
+function create(items, textField, itemsComparator) {
   var data = items;
   var trie = {};
 
-  function addWord(word, id) {
+  function addWord(word, id, wordIndex) {
     var wordLength = word.length;
     var node = trie;
+    var prefix = '';
 
     for (var i = 0; i < wordLength; i++) {
       var letter = word[i];
 
-      if (node[letter]) {
-        node[letter].ids[node[letter].ids.length] = id;
-      } else {
-        node[letter] = {
-          ids: [id]
-        };
+      prefix += letter;
+
+      if (!node[letter]) {
+        node[letter] = { ids: [] };
+      }
+
+      if (!node[letter].ids[wordIndex]) {
+        node[letter].ids[wordIndex] = [];
+      }
+
+      node[letter].ids[wordIndex].push(id);
+
+      if (itemsComparator) {
+        node[letter].ids[wordIndex].sort(function (id1, id2) {
+          return itemsComparator(items[id1], items[id2]);
+        });
       }
 
       node = node[letter];
@@ -40,7 +49,7 @@ function create(items, textField) {
     var wordsCount = words.length;
 
     for (var i = 0; i < wordsCount; i++) {
-      addWord(words[i], id);
+      addWord(words[i], id, i);
     }
   }
 
@@ -56,7 +65,17 @@ function create(items, textField) {
       }
     }
 
-    return node.ids;
+    var ids = node.ids;
+    var length = ids.length;
+    var result = [];
+
+    for (var i = 0; i < length; i++) {
+      if (ids[i]) {
+        result = result.concat(ids[i]);
+      }
+    }
+
+    return result;
   }
 
   function getPhraseIndices(phrase, limit) {
@@ -74,7 +93,7 @@ function create(items, textField) {
       indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
-    return _intersectionIntersection2['default'](indicesArray, limit);
+    return (0, _intersectionWithLimitIntersectionWithLimit2['default'])(indicesArray, limit);
   }
 
   function getMatches(query, limit) {

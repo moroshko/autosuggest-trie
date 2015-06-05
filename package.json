@@ -15,8 +15,8 @@
   "scripts": {
     "lint": "jscs src --verbose --max-errors=3 --reporter=inline --esnext",
     "test": "mocha src --recursive --compilers js:babel/register",
-    "build": "npm run lint && npm test",
-    "dist": "npm run build && babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection/intersection.js -o dist/intersection/intersection.js --stage 0"
+    "dist": "babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection-with-limit/intersection-with-limit.js -o dist/intersection-with-limit/intersection-with-limit.js",
+    "build": "npm run lint && npm test && npm run dist"
   },
   "keywords": [
     "autosuggest",
@@ -33,13 +33,10 @@
     "auto complete trie"
   ],
   "devDependencies": {
-    "babel": "^5.2.13",
-    "chai": "^2.3.0",
+    "babel": "^5.4.7",
+    "chai": "^3.0.0",
     "jscs": "^1.13.1",
-    "mocha": "^2.2.4"
-  },
-  "dependencies": {
-    "lodash": "^3.9.3"
+    "mocha": "^2.2.5"
   },
   "license": "MIT"
 }
