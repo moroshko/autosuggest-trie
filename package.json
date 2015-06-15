@@ -1,6 +1,6 @@
 {
   "name": "autosuggest-trie",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Trie implementation for autosuggest components",
   "main": "dist/autosuggest-trie/autosuggest-trie.js",
   "repository": {
@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "jscs src --verbose --max-errors=3 --reporter=inline --esnext",
     "test": "mocha src --recursive --compilers js:babel/register",
-    "dist": "babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection-with-limit/intersection-with-limit.js -o dist/intersection-with-limit/intersection-with-limit.js && babel src/concat-and-remove-dups-with-limit/concat-and-remove-dups-with-limit.js -o dist/concat-and-remove-dups-with-limit/concat-and-remove-dups-with-limit.js",
+    "dist": "babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection-with-limit/intersection-with-limit.js -o dist/intersection-with-limit/intersection-with-limit.js && babel src/concat-and-remove-dups/concat-and-remove-dups.js -o dist/concat-and-remove-dups/concat-and-remove-dups.js",
     "build": "npm run lint && npm test && npm run dist"
   },
   "keywords": [

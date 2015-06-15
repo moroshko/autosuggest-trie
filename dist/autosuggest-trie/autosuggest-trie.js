@@ -10,9 +10,9 @@ var _intersectionWithLimitIntersectionWithLimit = require('../intersection-with-
 
 var _intersectionWithLimitIntersectionWithLimit2 = _interopRequireDefault(_intersectionWithLimitIntersectionWithLimit);
 
-var _concatAndRemoveDupsWithLimitConcatAndRemoveDupsWithLimit = require('../concat-and-remove-dups-with-limit/concat-and-remove-dups-with-limit');
+var _concatAndRemoveDupsConcatAndRemoveDups = require('../concat-and-remove-dups/concat-and-remove-dups');
 
-var _concatAndRemoveDupsWithLimitConcatAndRemoveDupsWithLimit2 = _interopRequireDefault(_concatAndRemoveDupsWithLimitConcatAndRemoveDupsWithLimit);
+var _concatAndRemoveDupsConcatAndRemoveDups2 = _interopRequireDefault(_concatAndRemoveDupsConcatAndRemoveDups);
 
 function create(items, textField, itemsComparator) {
   var data = items;
@@ -57,7 +57,7 @@ function create(items, textField, itemsComparator) {
     }
   }
 
-  function getWordIndices(word, limit) {
+  function getWordIndices(word) {
     var wordLength = word.length;
     var node = trie;
 
@@ -75,7 +75,7 @@ function create(items, textField, itemsComparator) {
 
     for (var i = 0; i < length; i++) {
       if (ids[i]) {
-        result = (0, _concatAndRemoveDupsWithLimitConcatAndRemoveDupsWithLimit2['default'])(result, ids[i], limit);
+        result = (0, _concatAndRemoveDupsConcatAndRemoveDups2['default'])(result, ids[i]);
       }
     }
 
@@ -94,7 +94,7 @@ function create(items, textField, itemsComparator) {
     var indicesArray = [];
 
     for (var i = 0; i < wordsCount; i++) {
-      indicesArray[indicesArray.length] = getWordIndices(words[i], limit);
+      indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
     return (0, _intersectionWithLimitIntersectionWithLimit2['default'])(indicesArray, limit);

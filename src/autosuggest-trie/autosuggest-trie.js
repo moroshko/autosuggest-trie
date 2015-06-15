@@ -3,8 +3,8 @@
 import intersectionWithLimit
   from '../intersection-with-limit/intersection-with-limit';
 
-import concatAndRemoveDupsWithLimit
-  from '../concat-and-remove-dups-with-limit/concat-and-remove-dups-with-limit';
+import concatAndRemoveDups
+  from '../concat-and-remove-dups/concat-and-remove-dups';
 
 function create(items, textField, itemsComparator) {
   const data = items;
@@ -49,7 +49,7 @@ function create(items, textField, itemsComparator) {
     }
   }
 
-  function getWordIndices(word, limit) {
+  function getWordIndices(word) {
     const wordLength = word.length;
     let node = trie;
 
@@ -67,7 +67,7 @@ function create(items, textField, itemsComparator) {
 
     for (let i = 0; i < length; i++) {
       if (ids[i]) {
-        result = concatAndRemoveDupsWithLimit(result, ids[i], limit);
+        result = concatAndRemoveDups(result, ids[i]);
       }
     }
 
@@ -86,7 +86,7 @@ function create(items, textField, itemsComparator) {
     let indicesArray = [];
 
     for (let i = 0; i < wordsCount; i++) {
-      indicesArray[indicesArray.length] = getWordIndices(words[i], limit);
+      indicesArray[indicesArray.length] = getWordIndices(words[i]);
     }
 
     return intersectionWithLimit(indicesArray, limit);
