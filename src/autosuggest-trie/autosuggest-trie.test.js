@@ -23,6 +23,10 @@ const locations = [{
   id: 4,
   location: 'Richmond 6776 VIC',
   population: 3000
+}, {
+  id: 5,
+  location: 'Auckland CBD Auckland NZ',
+  population: 2000
 }];
 
 function locationsComparator(location1, location2) {
@@ -116,6 +120,10 @@ describe('trie', () => {
     it('should return no results if not all the words are found', () => {
       verifyMatches('East X', []);
       verifyMatches('r w 5 x', []);
+    });
+
+    it('should not return duplicate matches', () => {
+      verifyMatches('auckland', [5]);
     });
   });
 });

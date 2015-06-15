@@ -3,7 +3,7 @@
 import { expect } from 'chai';
 import intersectionWithLimit from './intersection-with-limit';
 
-describe('intersectionWithLimit', () => {
+describe('intersectionWithLimit()', () => {
   describe('when limit is not specified', () => {
     it('should return [] if one of the arrays is empty', () => {
       expect(intersectionWithLimit([
