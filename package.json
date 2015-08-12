@@ -1,6 +1,6 @@
 {
   "name": "autosuggest-trie",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Trie implementation for autosuggest components",
   "main": "dist/autosuggest-trie/autosuggest-trie.js",
   "repository": {

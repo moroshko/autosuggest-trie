@@ -17,10 +17,6 @@ function unique(array) {
   return result;
 }
 
-function clone(array) {
-  return array.slice(0);
-}
-
 export default function(array1, array2) {
-  return unique(clone(array1).concat(clone(array2)));
+  return unique(array1.concat(array2));
 }
