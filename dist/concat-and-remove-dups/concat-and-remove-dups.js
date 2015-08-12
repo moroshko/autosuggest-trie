@@ -3,24 +3,29 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-
-exports['default'] = function (array1, array2) {
-  var array1Count = array1.length;
-  var array2Count = array2.length;
-
+function unique(array) {
+  var seen = {};
   var result = [];
+  var length = array.length;
 
-  for (var i = 0; i < array1Count; i++) {
-    result[result.length] = array1[i];
-  }
+  for (var i = 0; i < length; i++) {
+    var item = array[i];
 
-  for (var i = 0; i < array2Count; i++) {
-    if (result.indexOf(array2[i]) === -1) {
-      result[result.length] = array2[i];
+    if (!seen[item]) {
+      seen[item] = true;
+      result[result.length] = item;
     }
   }
 
   return result;
+}
+
+function clone(array) {
+  return array.slice(0);
+}
+
+exports['default'] = function (array1, array2) {
+  return unique(clone(array1).concat(clone(array2)));
 };
 
 module.exports = exports['default'];

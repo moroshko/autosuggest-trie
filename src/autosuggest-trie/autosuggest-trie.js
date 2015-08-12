@@ -117,4 +117,4 @@ function create(items, textField, itemsComparator) {
 
 export default {
   create
-}
+};
