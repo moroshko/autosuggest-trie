@@ -4,40 +4,40 @@ import createTrie from './create-trie';
 const locations = [
   {
     id: 0,
-    location: 'East Richmond 1234 VIC',
+    name: 'East Richmond 1234 VIC',
     population: 10000
   },
   {
     id: 1,
-    location: 'East Eagle 1235 VIC',
+    name: 'East Eagle 1235 VIC',
     population: 5000
   },
   {
     id: 2,
-    location: 'Richmond West 5678 VIC',
+    name: 'Richmond West 5678 VIC',
     population: 4000
   },
   {
     id: 3,
-    location: 'Cheltenham 3192 Melbourne VIC',
+    name: 'Cheltenham 3192 Melbourne VIC',
     population: 7000
   },
   {
     id: 4,
-    location: 'Richmond 6776 VIC',
+    name: 'Richmond 6776 VIC',
     population: 3000
   },
   {
     id: 5,
-    location: 'Auckland CBD Auckland NZ',
+    name: 'Auckland CBD Auckland NZ',
     population: 2000
   }
 ];
 
 const comparator = (location1, location2) =>
-  location1.location < location2.location ? -1 : 1;
+  location1.name < location2.name ? -1 : 1;
 
-const trie = createTrie(locations, 'location', { comparator });
+const trie = createTrie(locations, 'name', { comparator });
 
 const getLocationById = id => {
   const matches = locations.filter(location => location.id === id);

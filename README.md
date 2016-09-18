@@ -35,42 +35,42 @@ import createTrie from 'autosuggest-trie';
 const locations = [
   {
     id: 1,
-    location: 'East Richmond 1234 VIC',
+    name: 'East Richmond 1234 VIC',
     population: 10000
   },
   {
     id: 2,
-    location: 'East Eagle 1235 VIC',
+    name: 'East Eagle 1235 VIC',
     population: 5000
   },
   {
     id: 3,
-    location: 'Richmond West 5678 VIC',
+    name: 'Richmond West 5678 VIC',
     population: 4000
   },
   {
     id: 4,
-    location: 'Cheltenham 3192 Melbourne VIC',
+    name: 'Cheltenham 3192 Melbourne VIC',
     population: 7000
   },
   {
     id: 5,
-    location: 'Richmond 6776 VIC',
+    name: 'Richmond 6776 VIC',
     population: 3000
   }
 ];
 
-const trie = createTrie(locations, 'location');
+const trie = createTrie(locations, 'name');
 
 console.log(trie.getMatches('richmond e'));
 /*
-  [ { id: 1, location: 'East Richmond 1234 VIC', population: 10000 } ]
+  [ { id: 1, name: 'East Richmond 1234 VIC', population: 10000 } ]
 */
 
 console.log(trie.getMatches('ri', { limit: 2 }));
 /*
-  [ { id: 3, location: 'Richmond West 5678 VIC', population: 4000 },
-    { id: 5, location: 'Richmond 6776 VIC', population: 3000 } ]
+  [ { id: 3, name: 'Richmond West 5678 VIC', population: 4000 },
+    { id: 5, name: 'Richmond 6776 VIC', population: 3000 } ]
 */
 ```
 
