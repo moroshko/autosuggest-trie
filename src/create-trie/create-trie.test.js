@@ -34,16 +34,16 @@ const locations = [
   }
 ];
 
-const comparator = (location1, location2) =>
-  location1.name < location2.name ? -1 : 1;
-
-const trie = createTrie(locations, 'name', { comparator });
-
 const getLocationById = id => {
   const matches = locations.filter(location => location.id === id);
 
-  return matches.length === 0 ? null : matches[0].location;
+  return matches.length === 0 ? null : matches[0].name;
 };
+
+let trie;
+
+const comparator = (location1, location2) =>
+  location1.name < location2.name ? -1 : 1;
 
 /* eslint-disable no-console */
 const verifyMatches = (query, expectedLocationIds, options) => {
@@ -72,63 +72,79 @@ const verifyMatches = (query, expectedLocationIds, options) => {
 /* eslint-enable no-console */
 
 describe('createTrie', () => {
-  describe('single word query', () => {
-    it('should find all exact matches', () => {
-      verifyMatches('richmond', [4, 2, 0]);
+  describe('without comparator', () => {
+    beforeEach(() => {
+      trie = createTrie(locations, 'name');
     });
 
-    it('should find all partial matches', () => {
-      verifyMatches('v', [4, 3, 1, 0, 2]);
+    describe('single word query', () => {
+      it('should find all exact matches', () => {
+        verifyMatches('richmond', [2, 4, 0]);
+      });
+
+      it('should find all partial matches', () => {
+        verifyMatches('v', [4, 0, 1, 2, 3]);
+      });
+
+      it('should limit number of matches', () => {
+        verifyMatches('v', [4, 0, 1], { limit: 3 });
+      });
+
+      it('should ignore case', () => {
+        verifyMatches('WE', [2]);
+      });
+
+      it('should ignore leading and trailing whitespaces', () => {
+        verifyMatches('  5\t ', [2]);
+      });
+
+      it('should return no results if query is empty', () => {
+        verifyMatches('', []);
+      });
+
+      it('should return no results if query is not found', () => {
+        verifyMatches('Richmonda', []);
+        verifyMatches('elbourne', []);
+        verifyMatches('x', []);
+        verifyMatches('8', []);
+      });
     });
 
-    it('should limit number of matches', () => {
-      verifyMatches('v', [4, 3, 1], { limit: 3 });
-    });
+    describe('multiple words query', () => {
+      it('should find all exact matches', () => {
+        verifyMatches('east richmond', [0]);
+      });
 
-    it('should ignore case', () => {
-      verifyMatches('WE', [2]);
-    });
+      it('should find all partial matches', () => {
+        verifyMatches('r v', [2, 4, 0]);
+      });
 
-    it('should ignore leading and trailing whitespaces', () => {
-      verifyMatches('  5\t ', [2]);
-    });
+      it('should limit number of matches', () => {
+        verifyMatches('r v', [2], { limit: 1 });
+      });
 
-    it('should return no results if query is empty', () => {
-      verifyMatches('', []);
-    });
+      it('should find all matches regardless of order', () => {
+        verifyMatches('VI r', [4, 0, 2]);
+      });
 
-    it('should return no results if query is not found', () => {
-      verifyMatches('Richmonda', []);
-      verifyMatches('elbourne', []);
-      verifyMatches('x', []);
-      verifyMatches('8', []);
+      it('should return no results if not all the words are found', () => {
+        verifyMatches('East X', []);
+        verifyMatches('r w 5 x', []);
+      });
+
+      it('should not return duplicate matches', () => {
+        verifyMatches('auckland', [5]);
+      });
     });
   });
 
-  describe('multiple words query', () => {
-    it('should find all exact matches', () => {
-      verifyMatches('east richmond', [0]);
+  describe('with comparator', () => {
+    beforeEach(() => {
+      trie = createTrie(locations, 'name', { comparator });
     });
 
-    it('should find all partial matches', () => {
-      verifyMatches('r v', [4, 2, 0]);
-    });
-
-    it('should limit number of matches', () => {
-      verifyMatches('r v', [4], { limit: 1 });
-    });
-
-    it('should find all matches regardless of order', () => {
-      verifyMatches('VI r', [4, 0, 2]);
-    });
-
-    it('should return no results if not all the words are found', () => {
-      verifyMatches('East X', []);
-      verifyMatches('r w 5 x', []);
-    });
-
-    it('should not return duplicate matches', () => {
-      verifyMatches('auckland', [5]);
+    it('should sort the items using the specified comparator', () => {
+      verifyMatches('v', [4, 3, 1, 0, 2]);
     });
   });
 });
