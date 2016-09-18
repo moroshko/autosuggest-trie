@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function unique(array) {
+var unique = function unique(arr) {
   var seen = {};
   var result = [];
-  var length = array.length;
+  var len = arr.length;
 
-  for (var i = 0; i < length; i++) {
-    var item = array[i];
+  for (var i = 0; i < len; i++) {
+    var item = arr[i];
 
     if (!seen[item]) {
       seen[item] = true;
@@ -18,10 +18,8 @@ function unique(array) {
   }
 
   return result;
-}
-
-exports['default'] = function (array1, array2) {
-  return unique(array1.concat(array2));
 };
 
-module.exports = exports['default'];
+exports.default = function (arr1, arr2) {
+  return unique(arr1.concat(arr2));
+};

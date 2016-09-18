@@ -1,9 +1,7 @@
-'use strict';
-
 import { expect } from 'chai';
 import concatAndRemoveDups from './concat-and-remove-dups';
 
-describe('concatAndRemoveDups()', () => {
+describe('concatAndRemoveDups', () => {
   describe('concatenation', () => {
     it('should concatenate arrays', () => {
       expect(concatAndRemoveDups([1, 4], [3, 2, 8]))

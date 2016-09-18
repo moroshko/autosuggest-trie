@@ -1,23 +1,35 @@
 {
   "name": "autosuggest-trie",
   "version": "1.4.1",
-  "description": "Trie implementation for autosuggest components",
-  "main": "dist/autosuggest-trie/autosuggest-trie.js",
+  "description": "Minimalistic trie implementation for autosuggest and autocomplete components.",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/moroshko/autosuggest-trie.git"
   },
   "author": "Misha Moroshko <michael.moroshko@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/moroshko/autosuggest-trie/issues"
-  },
-  "homepage": "https://github.com/moroshko/autosuggest-trie",
   "scripts": {
     "lint": "eslint src",
-    "test": "mocha --opts mocha.opts",
-    "dist": "babel src/autosuggest-trie/autosuggest-trie.js -o dist/autosuggest-trie/autosuggest-trie.js && babel src/intersection-with-limit/intersection-with-limit.js -o dist/intersection-with-limit/intersection-with-limit.js && babel src/concat-and-remove-dups/concat-and-remove-dups.js -o dist/concat-and-remove-dups/concat-and-remove-dups.js",
-    "build": "npm run lint && npm test && npm run dist"
+    "test": "nyc mocha 'src/**/*.test.js'",
+    "dist": "rm -rf dist && mkdir dist && babel src -d dist --ignore *.test.js",
+    "prebuild": "npm run lint && npm test",
+    "build": "npm run dist"
   },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-eslint": "^6.1.2",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-register": "^6.14.0",
+    "bithound": "^1.7.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.5.0",
+    "eslint-plugin-mocha": "^4.5.1",
+    "mocha": "^3.0.2",
+    "nyc": "^8.3.0"
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "autosuggest",
     "autocomplete",
@@ -32,12 +44,25 @@
     "auto suggest trie",
     "auto complete trie"
   ],
-  "devDependencies": {
-    "babel": "^5.8.21",
-    "babel-eslint": "^4.0.5",
-    "chai": "^3.2.0",
-    "eslint": "^1.1.0",
-    "mocha": "^2.2.5"
+  "nyc": {
+    "lines": 100,
+    "statements": 100,
+    "functions": 100,
+    "branches": 100,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "src/**/*.test.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "check-coverage": true
   },
   "license": "MIT"
 }

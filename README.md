@@ -1,9 +1,25 @@
-[![Build Status][status-image]][status-url]
-[![NPM Version][npm-image]][npm-url]
+# Below are v2.0 docs. v1.4.1 docs [here](https://github.com/moroshko/autosuggest-trie/blob/b8c47084049316f45a272ffc678dbd013f073bd4/README.md).
+
+<a href="https://codeship.com/projects/77991" target="_blank">
+  <img src="https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg?style=flat-square"
+       alt="Build Status" />
+</a>
+<a href="https://codecov.io/gh/moroshko/autosuggest-trie" target="_blank">
+  <img src="https://img.shields.io/codecov/c/github/moroshko/autosuggest-trie/master.svg?style=flat-square"
+       alt="Coverage Status">
+</a>
+<a href="https://www.bithound.io/github/moroshko/autosuggest-trie" target="_blank">
+  <img src="https://www.bithound.io/github/moroshko/autosuggest-trie/badges/score.svg"
+       alt="bitHound Overall Score">
+</a>
+<a href="https://npmjs.org/package/autosuggest-trie" target="_blank">
+  <img src="https://img.shields.io/npm/v/autosuggest-trie.svg?style=flat-square"
+       alt="NPM Version" />
+</a>
 
 # Autosuggest Trie
 
-Trie implementation for autosuggest components.
+Minimalistic trie implementation for autosuggest and autocomplete components.
 
 ## Installation
 
@@ -14,78 +30,89 @@ npm install autosuggest-trie --save
 ## Basic Usage
 
 ```js
-import autosuggestTrie from 'autosuggest-trie';
+import createTrie from 'autosuggest-trie';
 
-const locations = [{
-  id: 0,
-  location: 'East Richmond 1234 VIC',
-  population: 10000
-}, {
-  id: 1,
-  location: 'East Eagle 1235 VIC',
-  population: 5000
-}, {
-  id: 2,
-  location: 'Richmond West 5678 VIC',
-  population: 4000
-}, {
-  id: 3,
-  location: 'Cheltenham 3192 Melbourne VIC',
-  population: 7000
-}, {
-  id: 4,
-  location: 'Richmond 6776 VIC',
-  population: 3000
-}];
+const locations = [
+  {
+    id: 1,
+    location: 'East Richmond 1234 VIC',
+    population: 10000
+  },
+  {
+    id: 2,
+    location: 'East Eagle 1235 VIC',
+    population: 5000
+  },
+  {
+    id: 3,
+    location: 'Richmond West 5678 VIC',
+    population: 4000
+  },
+  {
+    id: 4,
+    location: 'Cheltenham 3192 Melbourne VIC',
+    population: 7000
+  },
+  {
+    id: 5,
+    location: 'Richmond 6776 VIC',
+    population: 3000
+  }
+];
 
-function locationsComparator(location1, location2) {
-  return location1.location < location2.location ? -1 : 1;
-}
-
-const trie = autosuggestTrie.create(locations, 'location', locationsComparator);
+const trie = createTrie(locations, 'location');
 
 console.log(trie.getMatches('richmond e'));
-// [ { id: 0, location: 'East Richmond 1234 VIC', population: 10000 } ]
+/*
+  [ { id: 1, location: 'East Richmond 1234 VIC', population: 10000 } ]
+*/
 
-console.log(trie.getMatches('ri', 2));
-// [ { id: 4, location: 'Richmond 6776 VIC', population: 3000 },
-//   { id: 2, location: 'Richmond West 5678 VIC', population: 4000 } ]
+console.log(trie.getMatches('ri', { limit: 2 }));
+/*
+  [ { id: 3, location: 'Richmond West 5678 VIC', population: 4000 },
+    { id: 5, location: 'Richmond 6776 VIC', population: 3000 } ]
+*/
 ```
 
-### API
+## API
 
-* [`create(items, itemKey, itemsComparator)`](#createOption)
-* [`getMatches(query, limit)`](#getMatchesOption)
+| Function | Description |
+| :--- | :--- |
+| [`createTrie(items, textKey, options)`](#createTrieFunction) | Creates a trie containing the given items. |
+| [`getMatches(query, options)`](#getMatchesFunction) | Returns items that match the given query. |
 
-<a name="createOption"></a>
-#### create(items, itemKey, itemsComparator)
+<a name="createTrieFunction"></a>
+### createTrie(items, textKey, options)
 
 Creates a trie containing the given items.
 
-* `items ` - (required) Array of objects
-* `itemKey` - (required) Key name that every `obj` in `items` must have. `obj[keyName]` Must be a string. `obj` will be inserted to trie based on `obj[keyName]`.
-* `itemsComparator` - (optional) function to compare two items. See [`.sort()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#Description) for reference.
+| Parameter | Type | Required | Description |
+| :--- | :--- | :---: | :--- |
+| `items` | Array | ✓ | Array of items. Every item must be an object. |
+| `textKey` | String | ✓ | Key that every `item` in `items` must have.<br />`item` will be inserted to the trie based on `item[textKey]`. |
+| `options` | Object | | Additional options |
 
-```js
-    function(item1, item2) {
-      // should return:
-      //   negative number - if item1 should appear BEFORE item2
-      //   positive number - if item1 should appear AFTER item2
-      //                 0 - if the order of item1 and item2 should be preserved
-    }
-```
+Possible options:
 
-**Note:** Matches in the first word (group 1) are prioritized over matches in the second word (group 2), which are prioritized over matches in the third word (group 3), and so on. `itemsComparator` will only sort the matches **within each group**.
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| comparator | Function | Items comparator, similar to [`Array#sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)'s `compareFunction`.<br />It gets two items, and should return a number.<br /><br />**Note:** Matches in the first word (let's call it "group 1") are prioritized over matches in the second word ("group 2"), which are prioritized over matches in the third word ("group 3"), and so on.<br />`comparator` will only sort the matches **within each group**.<br /><br />When `comparator` is not specified, items within each group will preserve their order in `items`. |
 
-<a name="getMatchesOption"></a>
-#### getMatches(query, limit)
+<a name="getMatchesFunction"></a>
+### getMatches(query, options)
 
-If `limit` is specified, returns the first `limit` `items` that match `query`.
+Returns items that match the given query.
 
-Otherwise, returns all the `items` that match `query`.
+| Parameter | Type | Required | Description |
+| :--- | :--- | :---: | :--- |
+| `query` | String | ✓ | Query string |
+| `options` | Object | | Additional query options |
 
-* `query` - (required) string
-* `limit` - (optional) integer >= 1
+Possible options:
+
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `limit` | Number | Integer >= 1<br /><br />**For example:** `getMatches('me', { limit: 3 })` will return no more than 3 items that match `'me'`. |
 
 ## Running Tests
 
@@ -95,9 +122,4 @@ npm test
 
 ## License
 
-[MIT](http://moroshko.mit-license.org)
-
-[status-image]: https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg
-[status-url]: https://codeship.com/projects/77991
-[npm-image]: https://img.shields.io/npm/v/autosuggest-trie.svg
-[npm-url]: https://npmjs.org/package/autosuggest-trie
+<a href="http://moroshko.mit-license.org" target="_blank">MIT</a>

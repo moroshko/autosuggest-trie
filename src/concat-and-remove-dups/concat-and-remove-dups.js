@@ -1,12 +1,10 @@
-'use strict';
-
-function unique(array) {
+const unique = arr => {
   const seen = {};
   const result = [];
-  const length = array.length;
+  const len = arr.length;
 
-  for (let i = 0; i < length; i++) {
-    const item = array[i];
+  for (let i = 0; i < len; i++) {
+    const item = arr[i];
 
     if (!seen[item]) {
       seen[item] = true;
@@ -15,8 +13,6 @@ function unique(array) {
   }
 
   return result;
-}
+};
 
-export default function(array1, array2) {
-  return unique(array1.concat(array2));
-}
+export default (arr1, arr2) => unique(arr1.concat(arr2));

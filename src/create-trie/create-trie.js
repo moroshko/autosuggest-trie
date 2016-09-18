@@ -1,27 +1,27 @@
-'use strict';
+import intersectionWithLimit from '../intersection-with-limit/intersection-with-limit';
+import concatAndRemoveDups from '../concat-and-remove-dups/concat-and-remove-dups';
 
-import intersectionWithLimit
-  from '../intersection-with-limit/intersection-with-limit';
+const whitespaceRegex = /\s+/;
 
-import concatAndRemoveDups
-  from '../concat-and-remove-dups/concat-and-remove-dups';
-
-function create(items, textField, itemsComparator) {
+export default (items, textKey, { comparator } = {}) => {
   const data = items;
   const trie = {};
 
-  function addWord(word, id, wordIndex) {
+  const compareFunction = comparator ?
+    (id1, id2) => comparator(items[id1], items[id2]) :
+    null;
+
+  const addWord = (word, id, wordIndex) => {
     const wordLength = word.length;
     let node = trie;
-    let prefix = '';
 
     for (let i = 0; i < wordLength; i++) {
       const letter = word[i];
 
-      prefix += letter;
-
       if (!node[letter]) {
-        node[letter] = { ids: [] };
+        node[letter] = {
+          ids: []
+        };
       }
 
       if (!node[letter].ids[wordIndex]) {
@@ -30,26 +30,24 @@ function create(items, textField, itemsComparator) {
 
       node[letter].ids[wordIndex].push(id);
 
-      if (itemsComparator) {
-        node[letter].ids[wordIndex].sort(function(id1, id2) {
-          return itemsComparator(items[id1], items[id2]);
-        });
+      if (compareFunction) {
+        node[letter].ids[wordIndex].sort(compareFunction);
       }
 
       node = node[letter];
     }
-  }
+  };
 
-  function addPhrase(phrase, id) {
-    const words = phrase.trim().toLowerCase().split(/\s+/);
+  const addPhrase = (phrase, id) => {
+    const words = phrase.trim().toLowerCase().split(whitespaceRegex);
     const wordsCount = words.length;
 
     for (let i = 0; i < wordsCount; i++) {
       addWord(words[i], id, i);
     }
-  }
+  };
 
-  function getWordIndices(word) {
+  const getWordIndices = word => {
     const wordLength = word.length;
     let node = trie;
 
@@ -72,16 +70,16 @@ function create(items, textField, itemsComparator) {
     }
 
     return result;
-  }
+  };
 
-  function getPhraseIndices(phrase, limit) {
+  const getPhraseIndices = (phrase, { limit }) => {
     phrase = phrase.trim();
 
     if (phrase === '') {
       return [];
     }
 
-    const words = phrase.toLowerCase().split(/\s+/);
+    const words = phrase.toLowerCase().split(whitespaceRegex);
     const wordsCount = words.length;
     let indicesArray = [];
 
@@ -90,10 +88,10 @@ function create(items, textField, itemsComparator) {
     }
 
     return intersectionWithLimit(indicesArray, limit);
-  }
+  };
 
-  function getMatches(query, limit) {
-    const indices = getPhraseIndices(query, limit);
+  const getMatches = (query, options = {}) => {
+    const indices = getPhraseIndices(query, options);
     const indicesCount = indices.length;
     let result = [];
 
@@ -102,19 +100,15 @@ function create(items, textField, itemsComparator) {
     }
 
     return result;
-  }
+  };
 
   const itemsCount = items.length;
 
   for (let i = 0; i < itemsCount; i++) {
-    addPhrase(items[i][textField], i);
+    addPhrase(items[i][textKey], i);
   }
 
   return {
     getMatches
   };
-}
-
-export default {
-  create
 };

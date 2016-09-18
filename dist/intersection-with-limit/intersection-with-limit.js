@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports['default'] = function (arrays, limit) {
+exports.default = function (arrays, limit) {
   var arraysCount = arrays.length;
   var firstArray = arrays[0];
   var firstArrayCount = firstArray.length;
@@ -12,8 +12,8 @@ exports['default'] = function (arrays, limit) {
   limit = limit || firstArrayCount;
 
   var result = [],
-      candidate = undefined,
-      found = undefined;
+      candidate = void 0,
+      found = void 0;
 
   for (var i = 0; i < firstArrayCount && result.length < limit; i++) {
     candidate = firstArray[i];
@@ -33,5 +33,3 @@ exports['default'] = function (arrays, limit) {
 
   return result;
 };
-
-module.exports = exports['default'];

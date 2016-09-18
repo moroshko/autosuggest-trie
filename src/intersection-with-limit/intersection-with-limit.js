@@ -1,6 +1,4 @@
-'use strict';
-
-export default function(arrays, limit) {
+export default (arrays, limit) => {
   const arraysCount = arrays.length;
   const firstArray = arrays[0];
   const firstArrayCount = firstArray.length;
@@ -26,4 +24,4 @@ export default function(arrays, limit) {
   }
 
   return result;
-}
+};
