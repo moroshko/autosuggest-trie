@@ -1,5 +1,3 @@
-# Below are v2.0 docs. v1.4.1 docs [here](https://github.com/moroshko/autosuggest-trie/blob/b8c47084049316f45a272ffc678dbd013f073bd4/README.md).
-
 <a href="https://codeship.com/projects/77991" target="_blank">
   <img src="https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg?style=flat-square"
        alt="Build Status" />

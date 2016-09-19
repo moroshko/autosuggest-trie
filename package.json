@@ -10,7 +10,7 @@
   "author": "Misha Moroshko <michael.moroshko@gmail.com>",
   "scripts": {
     "lint": "eslint src",
-    "test": "nyc mocha 'src/**/*.test.js'",
+    "test": "nyc mocha \"src/**/*.test.js\"",
     "dist": "rm -rf dist && mkdir dist && babel src -d dist --ignore *.test.js",
     "prebuild": "npm run lint && npm test",
     "build": "npm run dist"
