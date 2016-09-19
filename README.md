@@ -103,7 +103,7 @@ Returns items that match the given query.
 
 | Parameter | Type | Required | Description |
 | :--- | :--- | :---: | :--- |
-| `query` | String | ✓ | Query string |
+| `query` | String | ✓ | Non-blank query string.<br /><br />If `query` is blank, `[]` is returned. |
 | `options` | Object | | Additional query options |
 
 Possible options:
