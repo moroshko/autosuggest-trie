@@ -1,15 +1,14 @@
 import intersectionWithLimit from '../intersection-with-limit/intersection-with-limit';
 import concatAndRemoveDups from '../concat-and-remove-dups/concat-and-remove-dups';
 
-const whitespaceRegex = /\s+/;
-
-export default (items, textKey, { comparator } = {}) => {
+export default (items, textKey, { comparator, whitespaceRegex } = {}) => {
   const data = items;
   const trie = {};
 
   const compareFunction = comparator ?
     (id1, id2) => comparator(items[id1], items[id2]) :
     null;
+  const splitRegex = whitespaceRegex ? whitespaceRegex : /\s+/;
 
   const addWord = (word, id, wordIndex) => {
     const wordLength = word.length;
@@ -39,7 +38,7 @@ export default (items, textKey, { comparator } = {}) => {
   };
 
   const addPhrase = (phrase, id) => {
-    const words = phrase.trim().toLowerCase().split(whitespaceRegex);
+    const words = phrase.trim().toLowerCase().split(splitRegex);
     const wordsCount = words.length;
 
     for (let i = 0; i < wordsCount; i++) {
@@ -79,7 +78,7 @@ export default (items, textKey, { comparator } = {}) => {
       return [];
     }
 
-    const words = phrase.toLowerCase().split(whitespaceRegex);
+    const words = phrase.toLowerCase().split(splitRegex);
     const wordsCount = words.length;
     let indicesArray = [];
 
