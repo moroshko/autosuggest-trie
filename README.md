@@ -1,15 +1,7 @@
-<a href="https://codeship.com/projects/77991" target="_blank">
-  <img src="https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg?style=flat-square"
-       alt="Build Status" />
-</a>
-<a href="https://codecov.io/gh/moroshko/autosuggest-trie" target="_blank">
-  <img src="https://img.shields.io/codecov/c/github/moroshko/autosuggest-trie/master.svg?style=flat-square"
-       alt="Coverage Status">
-</a>
-<a href="https://npmjs.org/package/autosuggest-trie" target="_blank">
-  <img src="https://img.shields.io/npm/v/autosuggest-trie.svg?style=flat-square"
-       alt="NPM Version" />
-</a>
+[![Build Status](https://img.shields.io/codeship/a3eddcc0-d548-0132-ef15-420032d7f4bd/master.svg?style=flat-square)](https://codeship.com/projects/77991)
+[![Coverage Status](https://img.shields.io/codecov/c/github/moroshko/autosuggest-trie/master.svg?style=flat-square)](https://codecov.io/gh/moroshko/autosuggest-trie)
+[![npm Version](https://img.shields.io/npm/v/autosuggest-trie.svg?style=flat-square)](https://npmjs.org/package/autosuggest-trie)
+![gzip size](http://img.badgesize.io/https://unpkg.com/autosuggest-trie/dist/index.js?compression=gzip&style=flat-square)
 
 # Autosuggest Trie
 
@@ -91,7 +83,7 @@ Possible options:
 | Option | Type | Description |
 | :--- | :--- | :--- |
 | comparator | Function | Items comparator, similar to [`Array#sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)'s `compareFunction`.<br />It gets two items, and should return a number.<br /><br />**Note:** Matches in the first word (let's call it "group 1") are prioritized over matches in the second word ("group 2"), which are prioritized over matches in the third word ("group 3"), and so on.<br />`comparator` will only sort the matches **within each group**.<br /><br />When `comparator` is not specified, items within each group will preserve their order in `items`. |
-| whitespaceRegex | Regular Expression | The regular expression used to split words into groups. | 
+| whitespaceRegex | Regular Expression | The regular expression used to split words into groups. |
 
 <a name="getMatchesFunction"></a>
 ### getMatches(query, options)

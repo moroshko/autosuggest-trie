@@ -10,27 +10,38 @@
   "author": "Misha Moroshko <michael.moroshko@gmail.com>",
   "scripts": {
     "lint": "eslint src",
+    "prettier": "prettier --single-quote --write \"src/**/*.js\"",
     "test": "nyc mocha \"src/**/*.test.js\"",
     "dist": "rm -rf dist && mkdir dist && babel src -d dist --ignore *.test.js",
     "prebuild": "npm run lint && npm test",
     "build": "npm run dist",
     "postversion": "git push && git push --tags",
-    "prepublish": "npm run dist"
+    "prepublish": "npm run dist",
+    "precommit": "lint-staged"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-register": "^6.14.0",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
-    "eslint": "^3.5.0",
-    "eslint-plugin-mocha": "^4.5.1",
-    "mocha": "^3.0.2",
-    "nyc": "^8.3.0"
+    "eslint": "^3.19.0",
+    "eslint-plugin-mocha": "^4.9.0",
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "mocha": "^3.3.0",
+    "nyc": "^10.2.0",
+    "prettier": "^1.2.2"
   },
   "files": [
     "dist"
   ],
+  "lint-staged": {
+    "src/**/*.js": [
+      "npm run prettier",
+      "git add"
+    ]
+  },
   "keywords": [
     "autosuggest",
     "autocomplete",

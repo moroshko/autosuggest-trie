@@ -43,7 +43,7 @@ const getLocationById = id => {
 let trie;
 
 const comparator = (location1, location2) =>
-  location1.name < location2.name ? -1 : 1;
+  (location1.name < location2.name ? -1 : 1);
 
 /* eslint-disable no-console */
 const verifyMatches = (query, expectedLocationIds, options) => {
@@ -61,10 +61,12 @@ const verifyMatches = (query, expectedLocationIds, options) => {
   });
 
   if (matches.length !== expectedLocationIds.length) {
-    console.log(`
+    console.log(
+      `
       Expected to get ${expectedLocationIds.length} result(s),
       not ${matches.length}
-    `);
+    `
+    );
 
     expect(true).to.be.false;
   }
