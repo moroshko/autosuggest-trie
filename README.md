@@ -6,10 +6,6 @@
   <img src="https://img.shields.io/codecov/c/github/moroshko/autosuggest-trie/master.svg?style=flat-square"
        alt="Coverage Status">
 </a>
-<a href="https://www.bithound.io/github/moroshko/autosuggest-trie" target="_blank">
-  <img src="https://www.bithound.io/github/moroshko/autosuggest-trie/badges/score.svg"
-       alt="bitHound Overall Score">
-</a>
 <a href="https://npmjs.org/package/autosuggest-trie" target="_blank">
   <img src="https://img.shields.io/npm/v/autosuggest-trie.svg?style=flat-square"
        alt="NPM Version" />
