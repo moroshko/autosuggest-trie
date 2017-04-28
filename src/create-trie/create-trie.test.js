@@ -31,6 +31,11 @@ const locations = [
     id: 5,
     name: 'Auckland CBD Auckland NZ',
     population: 2000
+  },
+  {
+    id: 6,
+    name: 'Mountain_View___CA',
+    population: 9000
   }
 ];
 
@@ -147,6 +152,24 @@ describe('createTrie', () => {
 
     it('should sort the items using the specified comparator', () => {
       verifyMatches('v', [4, 3, 1, 0, 2]);
+    });
+  });
+
+  describe('with textKey splitRegex', () => {
+    beforeEach(() => {
+      trie = createTrie(locations, 'name', { splitRegex: /[\s_]+/ });
+    });
+
+    it('should split names into words using splitRegex', () => {
+      verifyMatches('ca mountain', [6]);
+    });
+
+    it('should not find matches without specifying splitRegex', () => {
+      verifyMatches('mountain-view', []);
+    });
+
+    it('should find matches when query splitRegex is specified', () => {
+      verifyMatches('mountain-view', [6], { splitRegex: /[\s-]+/ });
     });
   });
 });

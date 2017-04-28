@@ -3,14 +3,13 @@ import intersectionWithLimit
 import concatAndRemoveDups
   from '../concat-and-remove-dups/concat-and-remove-dups';
 
-export default (items, textKey, { comparator, whitespaceRegex } = {}) => {
+export default (items, textKey, { comparator, splitRegex = /\s+/ } = {}) => {
   const data = items;
   const trie = {};
 
   const compareFunction = comparator
     ? (id1, id2) => comparator(items[id1], items[id2])
     : null;
-  const splitRegex = whitespaceRegex ? whitespaceRegex : /\s+/;
 
   const addWord = (word, id, wordIndex) => {
     const wordLength = word.length;
@@ -73,7 +72,7 @@ export default (items, textKey, { comparator, whitespaceRegex } = {}) => {
     return result;
   };
 
-  const getPhraseIndices = (phrase, { limit }) => {
+  const getPhraseIndices = (phrase, { limit, splitRegex = /\s+/ }) => {
     phrase = phrase.trim();
 
     if (phrase === '') {

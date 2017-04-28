@@ -80,10 +80,10 @@ Creates a trie containing the given items.
 
 Possible options:
 
-| Option | Type | Description |
-| :--- | :--- | :--- |
-| comparator | Function | Items comparator, similar to [`Array#sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)'s `compareFunction`.<br />It gets two items, and should return a number.<br /><br />**Note:** Matches in the first word (let's call it "group 1") are prioritized over matches in the second word ("group 2"), which are prioritized over matches in the third word ("group 3"), and so on.<br />`comparator` will only sort the matches **within each group**.<br /><br />When `comparator` is not specified, items within each group will preserve their order in `items`. |
-| whitespaceRegex | Regular Expression | The regular expression used to split words into groups. |
+| Option | Type | Default | Description |
+| :--- | :--- | :---: | :--- |
+| `comparator` | Function | none | Items comparator, similar to [`Array#sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)'s `compareFunction`.<br />It gets two items, and should return a number.<br /><br />**Note:** Matches in the first word (let's call it "group 1") are prioritized over matches in the second word ("group 2"), which are prioritized over matches in the third word ("group 3"), and so on.<br />`comparator` will only sort the matches **within each group**.<br /><br />When `comparator` is not specified, items within each group will preserve their order in `items`. |
+| `splitRegex` | RegExp | `/\s+/` | Used to split items' `textKey` into words. |
 
 <a name="getMatchesFunction"></a>
 ### getMatches(query, options)
@@ -92,14 +92,15 @@ Returns items that match the given query.
 
 | Parameter | Type | Required | Description |
 | :--- | :--- | :---: | :--- |
-| `query` | String | ✓ | Non-blank query string.<br /><br />If `query` is blank, `[]` is returned. |
-| `options` | Object | | Additional query options |
+| `query` | String | ✓ | Non-blank `query` string.<br /><br />If `query` is blank, `[]` is returned. |
+| `options` | Object | | Additional `query` options. |
 
-Possible options:
+Possible `options`:
 
-| Option | Type | Description |
-| :--- | :--- | :--- |
-| `limit` | Number | Integer >= 1<br /><br />**For example:** `getMatches('me', { limit: 3 })` will return no more than 3 items that match `'me'`. |
+| Option | Type | Default | Description |
+| :--- | :--- | :---: | :--- |
+| `limit` | Number | `Infinity` | Integer >= 1<br /><br />**For example:** `getMatches('me', { limit: 3 })` will return no more than 3 items that match `'me'`. |
+| `splitRegex` | RegExp | `/\s+/` | Used to split the `query` into words. |
 
 ## Running Tests
 
@@ -109,4 +110,5 @@ npm test
 
 ## License
 
-<a href="http://moroshko.mit-license.org" target="_blank">MIT</a>
+[MIT](http://moroshko.mit-license.org)
+
