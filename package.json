@@ -1,6 +1,6 @@
 {
   "name": "autosuggest-trie",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Minimalistic trie implementation for autosuggest and autocomplete components.",
   "main": "dist/index.js",
   "repository": {
