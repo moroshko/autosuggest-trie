@@ -73,13 +73,12 @@ export default (items, textKey, { comparator, splitRegex = /\s+/ } = {}) => {
   };
 
   const getPhraseIndices = (phrase, { limit, splitRegex = /\s+/ }) => {
-    phrase = phrase.trim();
+    const words = phrase.toLowerCase().split(splitRegex).filter(Boolean);
 
-    if (phrase === '') {
+    if (words.length === 0) {
       return [];
     }
 
-    const words = phrase.toLowerCase().split(splitRegex);
     const wordsCount = words.length;
     let indicesArray = [];
 

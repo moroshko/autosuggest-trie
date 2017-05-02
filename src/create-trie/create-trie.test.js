@@ -171,5 +171,9 @@ describe('createTrie', () => {
     it('should find matches when query splitRegex is specified', () => {
       verifyMatches('mountain-view', [6], { splitRegex: /[\s-]+/ });
     });
+
+    it('should find matches when there is an empty word after splitting the query with splitRegex', () => {
+      verifyMatches('mountain-', [6], { splitRegex: /[\s-]+/ });
+    });
   });
 });
